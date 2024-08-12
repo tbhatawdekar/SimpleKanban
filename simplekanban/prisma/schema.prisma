@@ -51,6 +51,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  tasks         Task[]    
+
 }
 
 model VerificationToken {
@@ -59,4 +61,23 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model State {
+  id      Int     @id
+  name    String  @unique
+
+  tasks   Task[]
+}
+
+model Task {
+  id        String  @id @default(cuid())
+  userId    String
+  name      String
+  stateId   Int
+
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  state     State  @relation(fields: [stateId], references: [id], onDelete: Restrict)
+
+  @@index([userId])  // Optional: Index to speed up queries filtering by userId
 }
