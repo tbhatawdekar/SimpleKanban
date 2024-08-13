@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import UpgradeTask from './upgrade';
 
 interface Task {
     id: string;
@@ -23,13 +24,22 @@ export default function NewTasks() {
         fetchTasks();
     }, []);
 
+    const handleUpgrade = (taskId: string) => {
+        return async (event: React.MouseEvent<HTMLButtonElement>) => {
+            event.preventDefault();
+            await UpgradeTask(taskId);
+        };
+    };
 
     return (
         <div> 
             <h3>In Progress:</h3>
             <ul>
                 {tasks.map(task => (
-                    <li key={task.id}>{task.name}</li>
+                    <li key={task.id}>{task.name}
+                        <button onClick={handleUpgrade(task.id)}>Upgrade</button>
+                    </li>
+                    
                 ))}
             </ul>
         </div>
