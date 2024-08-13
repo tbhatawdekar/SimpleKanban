@@ -8,7 +8,7 @@ interface Task {
 
 export default function NewTasks() {
     const [tasks, setTasks] = useState<Task[]>([]);
-    const stateId = 1;
+    const stateId = 3;
     
     useEffect(() => { async function fetchTasks() {
             const res = await fetch(`/api/fetchTasks?stateId=${stateId}`, {
@@ -26,7 +26,7 @@ export default function NewTasks() {
 
     return (
         <div> 
-            <h3>New Tasks:</h3>
+            <h3>Completed:</h3>
             <ul>
                 {tasks.map(task => (
                     <li key={task.id}>{task.name}</li>

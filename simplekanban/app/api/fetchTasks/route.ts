@@ -16,11 +16,13 @@ export async function GET(req: Request) {
         console.log("no user found")
         return;
     }
+    const url = new URL(req.url);
+    const stateId = parseInt(url.searchParams.get('stateId') || '1');
 
     const tasks = await prisma.task.findMany({
         where: {
             userId: user.id,
-            stateId: 1
+            stateId: stateId,
         }
     });
 
