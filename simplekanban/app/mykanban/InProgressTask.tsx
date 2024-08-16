@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import UpgradeTask from './upgrade';
+import { useRouter } from 'next/navigation';
 
 interface Task {
     id: string;
@@ -10,7 +11,7 @@ interface Task {
 export default function NewTasks() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const stateId = 2;
-    
+    const router = useRouter();
     useEffect(() => { async function fetchTasks() {
             const res = await fetch(`/api/fetchTasks?stateId=${stateId}`, {
                 method: 'GET',
@@ -20,6 +21,7 @@ export default function NewTasks() {
             });
             const data = await res.json();
             setTasks(data.tasks);
+            router.refresh();
         }    
         fetchTasks();
     }, []);

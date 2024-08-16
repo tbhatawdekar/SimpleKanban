@@ -1,6 +1,9 @@
+import { useRouter } from 'next/navigation';
+
 export default async function UpgradeTask(taskId: string) {
     const taskData = { id: taskId };
-    await fetch('/api/upgradeTasks', {
+
+   return await fetch('/api/upgradeTasks', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

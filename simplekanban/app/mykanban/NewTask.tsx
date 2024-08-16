@@ -23,13 +23,15 @@ export default function NewTasks() {
             });
             const data = await res.json();
             setTasks(data.tasks);
+            router.refresh();
+
         }    
         fetchTasks();
     }, []);
 
     const handleUpgrade = (taskId: string) => {
         return async (event: React.MouseEvent<HTMLButtonElement>) => {
-            event.preventDefault();
+            //event.preventDefault();
             await UpgradeTask(taskId);
         };
     };
